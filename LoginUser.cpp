@@ -2,9 +2,85 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <time.h>
 
 using namespace std;
 void GameAccount();
+
+void displayBoard(char board[][3])														// Board isplay funtion
+{
+	cout << "Welcome to the Tic Tac Toe game!\n";										// Game introdution
+	cout << "1" << "|" << "2" << "|" << "3" << endl;
+	cout << "4" << "|" << "5" << "|" << "6" << endl;
+	cout << "7" << "|" << "8" << "|" << "9" << endl;
+	cout << "\nEnter the position that you want to place your mark.\n";
+	cout << board[0][0] << " |" << board[0][1] << " |" << board[0][2] << endl;
+	cout << "--|--|--\n";
+	cout << board[1][0] << " |" << board[1][1] << " |" << board[1][2] << endl;
+	cout << "--|--|--\n";
+	cout << board[2][0] << " |" << board[2][1] << " |" << board[2][2] << endl;
+}
+
+bool PlayerWin(char board[][3], char Player)											// Player winning condition
+{
+	if (board[0][0] == Player && board[0][1] == Player && board[0][2] == Player) { return true; }
+	else if (board[1][0] == Player && board[1][1] == Player && board[1][2] == Player) { return true; }
+	else if (board[2][0] == Player && board[2][1] == Player && board[2][2] == Player) { return true; }
+	else if (board[0][0] == Player && board[1][0] == Player && board[2][0] == Player) { return true; }
+	else if (board[0][1] == Player && board[1][1] == Player && board[2][1] == Player) { return true; }
+	else if (board[0][2] == Player && board[1][2] == Player && board[2][2] == Player) { return true; }
+	else if (board[0][0] == Player && board[1][1] == Player && board[2][2] == Player) { return true; }
+	else if (board[0][2] == Player && board[1][1] == Player && board[2][0] == Player) { return true; }
+	else { return false; }
+
+}
+bool RobotWin(char board[][3], char robot)												// Robot winning condition
+{
+	if (board[0][0] == robot && board[0][1] == robot && board[0][2] == robot) { return true; }
+	else if (board[1][0] == robot && board[1][1] == robot && board[1][2] == robot) { return true; }
+	else if (board[2][0] == robot && board[2][1] == robot && board[2][2] == robot) { return true; }
+	else if (board[0][0] == robot && board[1][0] == robot && board[2][0] == robot) { return true; }
+	else if (board[0][1] == robot && board[1][1] == robot && board[2][1] == robot) { return true; }
+	else if (board[0][2] == robot && board[1][2] == robot && board[2][2] == robot) { return true; }
+	else if (board[0][0] == robot && board[1][1] == robot && board[2][2] == robot) { return true; }
+	else if (board[0][2] == robot && board[1][1] == robot && board[2][0] == robot) { return true; }
+	else { return false; }
+}
+
+void robotMove(char board[][3])									// Robot move function
+{
+	int randrow, randcolumn;
+	srand(time(0));
+
+	for (int i = 0; i < 10; i++)								// choose a random spot to place X
+	{
+		randcolumn = rand() % 3;
+		randrow = rand() % 3;
+		if (board[randrow][randcolumn] == ' ' && !PlayerWin(board, 'O'))
+		{
+			board[randrow][randcolumn] = 'X';
+			break;
+		}
+	}
+
+}
+
+bool isBoardFull(char board[][3])									// Check tie condition: when there is no empty space
+{
+	int count = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (board[i][j] == ' ') { count++; }
+		}
+	}
+	if (count == 0 && !PlayerWin(board, 'O') && !RobotWin(board, 'X')) {
+		return true;
+	}
+	else { return false; }
+}
+
 bool islogin()													// Login function check for correct account name and password
 {	
 	string account, password, acc, pass;
@@ -24,14 +100,99 @@ bool islogin()													// Login function check for correct account name and 
 		{
 			return true;
 		}
-		else { return false; }
 	}	
 	file.close();												// Close the file
+	return false;
 }
 
 void Game(const string &name)
 {
 	cout << "Game Start!\n";
+	char command, choice;
+	bool play = true;
+
+
+	while (play == true)
+	{
+		int score = 0;
+		char board[3][3] = { {' ',' ',' '},			// Basic board design
+							{' ',' ',' '},
+							{' ',' ',' '} };
+		while (true) {
+			displayBoard(board);															
+			if (score < 0)
+			{
+				cout << "Games over! Robot wins this time.\n";
+				play = false;
+				break;
+			}
+			/* // condition which tie, player win, or robot win */
+			if (PlayerWin(board, 'O')) { 
+				cout << "Player Wins!\n";
+				score++; 
+				cout << "Your current score is: " << score << endl;
+				break; 
+			}
+			else if (isBoardFull(board)) { cout << "Tie! The board is full.\n\n\n"; break; }
+			if (RobotWin(board, 'X')) { 
+				cout << "Robot Wins!\n"; 
+				score--; 
+				cout << "Your current score is: " << score << endl;
+				break; 
+			}
+			else if (isBoardFull(board)) { cout << "Tie! The board is full.\n\n\n"; break; }
+			cin >> command;
+			if (command == 'q' ) { break; }											// Player move
+			else
+			{
+				switch (command)
+				{
+				case '1':
+					if (board[0][0] != 'X') { board[0][0] = 'O'; }
+					break;
+				case '2':
+					if (board[0][1] != 'X') { board[0][1] = 'O'; }
+					break;
+				case '3':
+					if (board[0][2] != 'X') { board[0][2] = 'O'; }
+					break;
+				case '4':
+					if (board[1][0] != 'X') { board[1][0] = 'O'; }
+					break;
+				case '5':
+					if (board[1][1] != 'X') { board[1][1] = 'O'; }
+					break;
+				case '6':
+					if (board[1][2] != 'X') { board[1][2] = 'O'; }
+					break;
+				case '7':
+					if (board[2][0] != 'X') { board[2][0] = 'O'; }
+					break;
+				case '8':
+					if (board[2][1] != 'X') { board[2][1] = 'O'; }
+					break;
+				case '9':
+					if (board[2][2] != 'X') { board[2][2] = 'O'; }
+					break;
+				default:
+					cout << "Invalid input\n";
+					break;
+				}
+			}
+			robotMove(board);												// Display updated board
+		}
+		cout << "Want to play another round?(y/n): ";						// Multiple plays allowed
+		cin >> choice;
+		if (choice == 'n' || choice == 'N')
+		{
+			cout << "Thanks for playing!\n";
+			play = false;
+		}
+		else if (choice == 'y' || choice == 'Y')
+		{
+			play = true;
+		}
+	}
 }
 
 void Chat(string name)												// Chat function: send message and display chat history
@@ -41,70 +202,45 @@ void Chat(string name)												// Chat function: send message and display cha
 	ifstream read_chat;
 	string message, item;
 
-	cout << "\nWelcome to the chatting room! Let's chat!\nEnter exist to leave the chat room\n";
+	cout << "\nWelcome to the chatting room! Let's chat!\nEnter exist to leave the chat room\n\n";
 	while (chat == true)
 	{
 		cout << "Enter message: ";							
 		getline(cin, message);
 
-		if (message == "Exist" || message == "exist")					// Exist the program 
+		if (message == "Exist" || message == "exist")						// Exist the Chat room 
 		{
-			cout << "Logged out.\n";
-			break;
+			chat = false;
 		}
-		chat_history.open("ChatHistory.txt",ios::app);					// Open and append item to ChatHistroy.txt 
-		chat_history << name << ": " << message << endl;
-		chat_history.close();											// Close the file
-		
-
-		int count = 0;
-		read_chat.open("ChatHistory.txt");								// Open the ChatHistroy.txt to read
-		cout << "Chat room:\n";
-		while (!read_chat.eof())										// loop and print all the items in ChatHistroy.txt 
+		else
 		{
-			count++;
-			getline(read_chat, item);
-			cout << item << endl;
+			chat_history.open("ChatHistory.txt", ios::app);					// Open and append item to ChatHistroy.txt 
+			chat_history << name << ": " << message << endl;
+			chat_history.close();											// Close the file
+
+
+			int count = 0;
+			read_chat.open("ChatHistory.txt");								// Open the ChatHistroy.txt to read
+			cout << "\nChat room:\n";
+			while (!read_chat.eof())										// Print chat history: loop and print all the items in ChatHistroy.txt 
+			{
+				count++;
+				getline(read_chat, item);
+				cout << item << endl;
+			}
+			read_chat.close();												// Close the file
+
+			if (count > 20)													// Remove all the items in ChatHistroy.txt when number of items reaches 20
+			{
+				remove("ChatHistory.txt");
+			}
 		}
-		read_chat.close();												// Close the file
-		if (count > 20)													// Remove all the items in ChatHistroy.txt when number of items reaches 20
-		{
-			remove("ChatHistory.txt");	
-		}
-
 	}
-}
-
-int main()
-{
-	int choice;
-	string name;
-	GameAccount();														// Function to create an account
-
-	cout << "\n1: Chat room\n2: Game\nYour choice: ";
-	cin >> choice;
-	cin.ignore();														// Ignore to avoid conflicts between cin and getline
-	cout << "Create your name: ";
-	getline(cin, name);
-
-
-	if (choice == 1)													// If statement to choice program between chat and game
-	{
-		Chat(name);
-	}
-	else if (choice == 2)
-	{
-		Game(name);
-	}
-
-	
-	system("pause");
-	return 0;
 }
 
 void GameAccount()
 {
-	int choice;
+	string choice;
 	bool run = true;
 	vector<string> password_check;
 
@@ -114,7 +250,7 @@ void GameAccount()
 		cout << "\n1: Login\n2: Register\nChoice: ";
 		cin >> choice;
 
-		if (choice == 1)												// Check if the login account and password is registered 
+		if (choice == "1")												// Check if the login account and password is registered 
 		{
 			bool status = islogin();
 
@@ -128,7 +264,7 @@ void GameAccount()
 				cout << "Successfully logged in!\n";
 			}
 		}
-		else if (choice == 2)											// Register account option
+		else if (choice == "2")											// Register account option
 		{
 			string account_name, password;
 
@@ -180,5 +316,42 @@ void GameAccount()
 				cout << "Register successfully!\n";
 			}
 		}
+		else { cout << "Inavlid input!\n"; }
 	}
+}
+
+int main()
+{
+	string choice;
+	string name;
+	GameAccount();														// Function to create an account
+
+	cout << "Create your name (no space please): ";
+	cin >> name;
+
+	while (true) {
+		cout << "\n1: Chat room\n2: Game\nYour choice (Enter q log out): ";
+		cin >> choice;
+
+		if (choice == "1")													// If statement to choice program between chat and game
+		{
+			Chat(name);
+		}
+		else if (choice == "2")
+		{
+			Game(name);
+		}
+		else if (choice == "q")
+		{
+			cout << "logged out.\n";
+			break;
+		}
+		else
+		{
+			cout << "Inavlid choice.\n";
+		}
+	}
+
+	system("pause");
+	return 0;
 }
