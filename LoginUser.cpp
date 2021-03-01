@@ -7,7 +7,7 @@
 using namespace std;
 void GameAccount();
 
-void displayBoard(char board[][3])														// Board isplay funtion
+void displayBoard(char board[][3])												// Board isplay funtion
 {
 	cout << "Welcome to the Tic Tac Toe game!\n";										// Game introdution
 	cout << "1" << "|" << "2" << "|" << "3" << endl;
@@ -34,7 +34,7 @@ bool PlayerWin(char board[][3], char Player)											// Player winning conditi
 	else { return false; }
 
 }
-bool RobotWin(char board[][3], char robot)												// Robot winning condition
+bool RobotWin(char board[][3], char robot)											// Robot winning condition
 {
 	if (board[0][0] == robot && board[0][1] == robot && board[0][2] == robot) { return true; }
 	else if (board[1][0] == robot && board[1][1] == robot && board[1][2] == robot) { return true; }
@@ -65,7 +65,7 @@ void robotMove(char board[][3])									// Robot move function
 
 }
 
-bool isBoardFull(char board[][3])									// Check tie condition: when there is no empty space
+bool isBoardFull(char board[][3])								// Check tie condition: when there is no empty space
 {
 	int count = 0;
 	for (int i = 0; i < 3; i++)
@@ -81,7 +81,7 @@ bool isBoardFull(char board[][3])									// Check tie condition: when there is 
 	else { return false; }
 }
 
-bool islogin()													// Login function check for correct account name and password
+bool islogin()											// Login function check for correct account name and password
 {	
 	string account, password, acc, pass;
 
@@ -92,7 +92,7 @@ bool islogin()													// Login function check for correct account name and 
 	
 	ifstream file("Account.txt");								// Create a file called Account.txt
 
-	while (!file.eof())											// Loop through Account.txt to check if there is a exist account created
+	while (!file.eof())									// Loop through Account.txt to check if there is a exist account created
 	{	
 		getline(file, acc);										
 		getline(file, pass);
@@ -101,7 +101,7 @@ bool islogin()													// Login function check for correct account name and 
 			return true;
 		}
 	}	
-	file.close();												// Close the file
+	file.close();										// Close the file
 	return false;
 }
 
@@ -115,7 +115,7 @@ void Game(const string &name)
 	while (play == true)
 	{
 		int score = 0;
-		char board[3][3] = { {' ',' ',' '},			// Basic board design
+		char board[3][3] = { {' ',' ',' '},						// Basic board design
 							{' ',' ',' '},
 							{' ',' ',' '} };
 		while (true) {
@@ -142,7 +142,7 @@ void Game(const string &name)
 			}
 			else if (isBoardFull(board)) { cout << "Tie! The board is full.\n\n\n"; break; }
 			cin >> command;
-			if (command == 'q' ) { break; }											// Player move
+			if (command == 'q' ) { break; }							// Player move
 			else
 			{
 				switch (command)
@@ -179,7 +179,7 @@ void Game(const string &name)
 					break;
 				}
 			}
-			robotMove(board);												// Display updated board
+			robotMove(board);								// Display updated board
 		}
 		cout << "Want to play another round?(y/n): ";						// Multiple plays allowed
 		cin >> choice;
@@ -195,7 +195,7 @@ void Game(const string &name)
 	}
 }
 
-void Chat(string name)												// Chat function: send message and display chat history
+void Chat(string name)											// Chat function: send message and display chat history
 {
 	bool chat = true;
 	ofstream chat_history;
@@ -216,21 +216,21 @@ void Chat(string name)												// Chat function: send message and display cha
 		{
 			chat_history.open("ChatHistory.txt", ios::app);					// Open and append item to ChatHistroy.txt 
 			chat_history << name << ": " << message << endl;
-			chat_history.close();											// Close the file
+			chat_history.close();								// Close the file
 
 
 			int count = 0;
-			read_chat.open("ChatHistory.txt");								// Open the ChatHistroy.txt to read
+			read_chat.open("ChatHistory.txt");						// Open the ChatHistroy.txt to read
 			cout << "\nChat room:\n";
-			while (!read_chat.eof())										// Print chat history: loop and print all the items in ChatHistroy.txt 
+			while (!read_chat.eof())							// Print chat history: loop and print all the items in ChatHistroy.txt 
 			{
 				count++;
 				getline(read_chat, item);
 				cout << item << endl;
 			}
-			read_chat.close();												// Close the file
+			read_chat.close();								// Close the file
 
-			if (count > 20)													// Remove all the items in ChatHistroy.txt when number of items reaches 20
+			if (count > 20)									// Remove all the items in ChatHistroy.txt when number of items reaches 20
 			{
 				remove("ChatHistory.txt");
 			}
@@ -250,7 +250,7 @@ void GameAccount()
 		cout << "\n1: Login\n2: Register\nChoice: ";
 		cin >> choice;
 
-		if (choice == "1")												// Check if the login account and password is registered 
+		if (choice == "1")									// Check if the login account and password is registered 
 		{
 			bool status = islogin();
 
@@ -264,7 +264,7 @@ void GameAccount()
 				cout << "Successfully logged in!\n";
 			}
 		}
-		else if (choice == "2")											// Register account option
+		else if (choice == "2")									// Register account option
 		{
 			string account_name, password;
 
@@ -280,13 +280,13 @@ void GameAccount()
 			cin >> password;
 			password_check.push_back(password);
 
-			if (password_check[0] != password_check[1])							// Check if password matches
+			if (password_check[0] != password_check[1])					// Check if password matches
 			{
 				cout << "Password you entered does not match!\n";
-				password_check.pop_back();										// Clean the vector
+				password_check.pop_back();						// Clean the vector
 				password_check.pop_back();
 			}
-			else if (account_name.length() < 5)									// Security measures: length
+			else if (account_name.length() < 5)						// Security measures: length
 			{
 				cout << "Your account name is too short.\n";
 			}
@@ -297,7 +297,7 @@ void GameAccount()
 			else
 			{
 				int count = 0;
-				for (auto element : password)									// Security measures: should contain symbols or upper case letter
+				for (auto element : password)						// Security measures: should contain symbols or upper case letter
 				{
 					if (char(element) >= 48 && char(element) <= 57 || char(element) >= 97 && char(element) <= 122)     
 					{
@@ -310,9 +310,9 @@ void GameAccount()
 					continue;
 				}
 				ofstream file;
-				file.open("Account.txt",ios::app);								// Open and append account information into the file
+				file.open("Account.txt",ios::app);					// Open and append account information into the file
 				file << account_name << endl << password << endl;
-				file.close();													// Close file
+				file.close();								// Close file
 				cout << "Register successfully!\n";
 			}
 		}
@@ -324,7 +324,7 @@ int main()
 {
 	string choice;
 	string name;
-	GameAccount();														// Function to create an account
+	GameAccount();											// Function to create an account
 
 	cout << "Create your name (no space please): ";
 	cin >> name;
@@ -333,7 +333,7 @@ int main()
 		cout << "\n1: Chat room\n2: Game\nYour choice (Enter q log out): ";
 		cin >> choice;
 
-		if (choice == "1")													// If statement to choice program between chat and game
+		if (choice == "1")									// If statement to choice program between chat and game
 		{
 			Chat(name);
 		}
