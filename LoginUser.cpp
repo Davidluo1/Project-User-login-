@@ -116,8 +116,8 @@ void Game(const string &name)
 	{
 		int score = 0;
 		char board[3][3] = { 	{' ',' ',' '},						// Basic board design
-					{' ',' ',' '},
-					{' ',' ',' '} };
+					            {' ',' ',' '},
+					            {' ',' ',' '} };
 		while (true) {
 			displayBoard(board);															
 			if (score < 0)
@@ -148,38 +148,38 @@ void Game(const string &name)
 				switch (command)
 				{
 				case '1':
-					if (board[0][0] != 'X') { board[0][0] = 'O'; }
+					if (board[0][0] == ' ') { board[0][0] = 'O'; robotMove(board);}
 					break;
 				case '2':
-					if (board[0][1] != 'X') { board[0][1] = 'O'; }
+					if (board[0][1] == ' ') { board[0][1] = 'O'; robotMove(board);}
 					break;
 				case '3':
-					if (board[0][2] != 'X') { board[0][2] = 'O'; }
+					if (board[0][2] == ' ') { board[0][2] = 'O'; robotMove(board);}
 					break;
 				case '4':
-					if (board[1][0] != 'X') { board[1][0] = 'O'; }
+					if (board[1][0] == ' ') { board[1][0] = 'O'; robotMove(board);}
 					break;
 				case '5':
-					if (board[1][1] != 'X') { board[1][1] = 'O'; }
+					if (board[1][1] == ' ') { board[1][1] = 'O'; robotMove(board);}
 					break;
 				case '6':
-					if (board[1][2] != 'X') { board[1][2] = 'O'; }
+					if (board[1][2] == ' ') { board[1][2] = 'O'; robotMove(board);}
 					break;
 				case '7':
-					if (board[2][0] != 'X') { board[2][0] = 'O'; }
+					if (board[2][0] == ' ') { board[2][0] = 'O'; robotMove(board);}
 					break;
 				case '8':
-					if (board[2][1] != 'X') { board[2][1] = 'O'; }
+					if (board[2][1] == ' ') { board[2][1] = 'O'; robotMove(board);}
 					break;
 				case '9':
-					if (board[2][2] != 'X') { board[2][2] = 'O'; }
+					if (board[2][2] == ' ') { board[2][2] = 'O'; robotMove(board);}
 					break;
 				default:
 					cout << "Invalid input\n";
 					break;
 				}
+				// robotMove(board);								            // Display updated board
 			}
-			robotMove(board);								// Display updated board
 		}
 		cout << "Want to play another round?(y/n): ";						// Multiple plays allowed
 		cin >> choice;
