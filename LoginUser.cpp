@@ -7,6 +7,7 @@
 using namespace std;
 void GameAccount();
 
+# create borad game display
 void displayBoard(char board[][3])												// Board isplay funtion
 {
 	cout << "Welcome to the Tic Tac Toe game!\n";										// Game introdution
@@ -21,6 +22,7 @@ void displayBoard(char board[][3])												// Board isplay funtion
 	cout << board[2][0] << " |" << board[2][1] << " |" << board[2][2] << endl;
 }
 
+# Player winning condition
 bool PlayerWin(char board[][3], char Player)											// Player winning condition
 {
 	if (board[0][0] == Player && board[0][1] == Player && board[0][2] == Player) { return true; }
@@ -35,6 +37,7 @@ bool PlayerWin(char board[][3], char Player)											// Player winning conditi
 
 }
 
+# robot winning condition
 bool RobotWin(char board[][3], char robot)											// Robot winning condition
 {
 	if (board[0][0] == robot && board[0][1] == robot && board[0][2] == robot) { return true; }
@@ -48,6 +51,7 @@ bool RobotWin(char board[][3], char robot)											// Robot winning condition
 	else { return false; }
 }
 
+# robot movement
 void robotMove(char board[][3])									// Robot move function
 {
 	int randrow, randcolumn;
