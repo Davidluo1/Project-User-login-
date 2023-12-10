@@ -319,15 +319,19 @@ void GameAccount()
 	}
 }
 
+# main function
 int main()
 {
 	string choice;
 	string name;
+
+	# declare Game Function
 	GameAccount();											// Function to create an account
 
 	cout << "Create your name (no space please): ";
 	cin >> name;
 
+	# Game start
 	while (true) {
 		cout << "\n1: Chat room\n2: Game\nYour choice (Enter q log out): ";
 		cin >> choice;
