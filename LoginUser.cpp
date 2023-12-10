@@ -63,7 +63,6 @@ void robotMove(char board[][3])									// Robot move function
 			break;
 		}
 	}
-
 }
 
 bool isBoardFull(char board[][3])								// Check tie condition: when there is no empty space
@@ -111,7 +110,6 @@ void Game(const string &name)
 	cout << "Game Start!\n";
 	char command, choice;
 	bool play = true;
-
 
 	while (play == true)
 	{
