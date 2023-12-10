@@ -69,6 +69,7 @@ void robotMove(char board[][3])									// Robot move function
 	}
 }
 
+# Tie check
 bool isBoardFull(char board[][3])								// Check tie condition: when there is no empty space
 {
 	int count = 0;
@@ -85,6 +86,7 @@ bool isBoardFull(char board[][3])								// Check tie condition: when there is n
 	else { return false; }
 }
 
+# Login check
 bool islogin()											// Login function check for correct account name and password
 {	
 	string account, password, acc, pass;
@@ -241,6 +243,7 @@ void Chat(string name)											// Chat function: send message and display chat
 	}
 }
 
+# Game account registeration
 void GameAccount()
 {
 	string choice;
