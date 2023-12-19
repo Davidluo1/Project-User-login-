@@ -73,6 +73,7 @@ void robotMove(char board[][3])									// Robot move function
 bool isBoardFull(char board[][3])								// Check tie condition: when there is no empty space
 {
 	int count = 0;
+	
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++)
@@ -80,6 +81,7 @@ bool isBoardFull(char board[][3])								// Check tie condition: when there is n
 			if (board[i][j] == ' ') { count++; }
 		}
 	}
+	
 	if (count == 0 && !PlayerWin(board, 'O') && !RobotWin(board, 'X')) {
 		return true;
 	}
