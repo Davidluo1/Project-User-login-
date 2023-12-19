@@ -125,6 +125,7 @@ void Game(const string &name)
 		char board[3][3] = { 	{' ',' ',' '},						// Basic board design
 					            {' ',' ',' '},
 					            {' ',' ',' '} };
+		
 		while (true) {
 			displayBoard(board);															
 			if (score < 0)
