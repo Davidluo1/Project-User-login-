@@ -253,7 +253,6 @@ void GameAccount()
 	bool run = true;
 	vector<string> password_check;
 
-
 	while (run == true)
 	{
 		cout << "\n1: Login\n2: Register\nChoice: ";
