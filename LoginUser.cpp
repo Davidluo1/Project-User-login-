@@ -363,7 +363,6 @@ int main()
 			cout << "Inavlid choice.\n";
 		}
 	}
-
 	system("pause");
 	return 0;
 }
