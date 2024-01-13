@@ -191,6 +191,7 @@ void Game(const string &name)
 		}
 		cout << "Want to play another round?(y/n): ";						// Multiple plays allowed
 		cin >> choice;
+		
 		if (choice == 'n' || choice == 'N')
 		{
 			cout << "Thanks for playing!\n";
