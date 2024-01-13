@@ -306,6 +306,7 @@ void GameAccount()
 			else
 			{
 				int count = 0;
+				
 				for (auto element : password)						// Security measures: should contain symbols or upper case letter
 				{
 					if (char(element) >= 48 && char(element) <= 57 || char(element) >= 97 && char(element) <= 122)     
@@ -313,6 +314,7 @@ void GameAccount()
 						count++;
 					}
 				}
+				
 				if (password.length() == count)
 				{
 					cout << "Your password should contain at least one Captial or symbol.\n";
